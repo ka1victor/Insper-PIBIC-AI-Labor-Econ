@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+
+# Insumos de terceiros que o passo 1 baixa: cerca de 230 MB de dado público,
+# reprodutível por um comando. Não versionamos o que não é nosso.
+dados/aei/
+
+# Microdado do IPUMS: redistribuição proibida pelos termos de uso.
+# Re-obtenha o extract em cps.ipums.org com a definição em dados/cps-ipums/.
+*.dat
+*.dat.gz

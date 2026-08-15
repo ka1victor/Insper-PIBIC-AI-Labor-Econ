@@ -1,0 +1,14 @@
+# pip install -r requirements.txt
+#
+# Verificado em 15/08/2026 com Python 3.12, pandas 2.2.1, numpy 1.26.4,
+# pyfixest 0.60.0, matplotlib 3.8.3, scipy 1.11.4 e openpyxl 3.1.2: os seis
+# passos reproduzem as tabelas e figuras deste repositório.
+pandas
+numpy
+pyfixest>=0.60
+matplotlib
+scipy
+openpyxl   # leitura do crosswalk .xlsx, no passo 2
+
+# O passo 1 baixa com `curl`, que já vem no Windows 10+, no macOS e na maioria
+# das distribuições Linux. Não há dependência de Python para o download.
