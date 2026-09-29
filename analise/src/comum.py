@@ -216,8 +216,11 @@ def k_para_data(k) -> pd.Timestamp:
     return pd.Timestamp(y, m + 1, 1)
 
 
-NOTA_FIG = ("Referência: Out/2022 | linhas verticais: Mar/2020 (pandemia), "
-            "Mar/2022 (juros), Nov/2022 (ChatGPT, em vermelho)")
+# O rodapé traz só a referência. O significado das três linhas verticais
+# (mar/2020, pandemia; mar/2022, juros; nov/2022, ChatGPT, em vermelho) está na
+# Nota de cada figura no relatório: a frase inteira não cabe na largura da
+# página num corpo legível.
+NOTA_FIG = "Referência: Out/2022"
 
 
 def eixos_es(ax, rotulo_y: str):
@@ -233,4 +236,5 @@ def eixos_es(ax, rotulo_y: str):
 
 
 def rodape(fig):
-    fig.text(0.99, 0.005, NOTA_FIG, ha="right", fontsize=9.5, color="0.25")
+    fig.text(0.99, 0.01, NOTA_FIG, ha="right", va="bottom", fontsize=9.5,
+             color="0.25")

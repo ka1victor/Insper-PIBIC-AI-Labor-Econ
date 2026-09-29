@@ -57,32 +57,35 @@ def doses_de_nivel():
 
 
 def figura(occ, cor_volumes):
-    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.3))
+    # 6,6 pol de largura para a página de 16 cm (6,3 pol): o corpo impresso é
+    # pt × 6,3 / largura, e em 9,6 pol o rótulo de eixo saía a 6,2 pt. Aqui o
+    # menor texto (9,5 pt) sai a ~9 pt.
+    fig, axes = plt.subplots(1, 2, figsize=(6.6, 3.8))
     paineis = [
         (axes[0], occ["usage_z"], occ["automation_z"], VERDE,
-         "A. O que estimamos: intensidade × fração",
+         "A. Especificação adotada:\nintensidade e fração substitutiva",
          "intensidade do uso $u$ (d.p.)", "fração substitutiva $a$ (d.p.)",
          occ["usage_z"].corr(occ["automation_z"])),
         (axes[1], occ["aug_pc_z"], occ["auto_pc_z"], TIJOLO,
-         "B. A tradução literal: os dois volumes",
+         "B. Alternativa da literatura:\nvolumes complementar e substitutivo",
          "volume complementar (d.p.)", "volume substitutivo (d.p.)",
          cor_volumes),
     ]
     for ax, x, y, cor, titulo, xlab, ylab, r in paineis:
-        ax.scatter(x, y, s=13, color=cor, alpha=0.5, linewidth=0)
+        ax.scatter(x, y, s=7, color=cor, alpha=0.5, linewidth=0)
         # a reta de ajuste é o que separa visualmente uma nuvem de uma reta
         b = np.polyfit(x, y, 1)
         xx = np.linspace(x.min(), x.max(), 50)
-        ax.plot(xx, np.polyval(b, xx), color=cor, lw=1.7)
-        ax.set_title(titulo, fontsize=10.5)
-        ax.set_xlabel(xlab, fontsize=9.5)
-        ax.set_ylabel(ylab, fontsize=9.5)
+        ax.plot(xx, np.polyval(b, xx), color=cor, lw=1.4)
+        ax.set_title(titulo, fontsize=10)
+        ax.set_xlabel(xlab, fontsize=10)
+        ax.set_ylabel(ylab, fontsize=10)
         # menos tipográfico e vírgula decimal, que é o que a página do paper usa
         ax.text(0.04, 0.94, f"r = {r:+.2f}".replace(".", ",").replace("-", "−"),
-                transform=ax.transAxes, fontsize=12, fontweight="bold",
+                transform=ax.transAxes, fontsize=11, fontweight="bold",
                 color=cor, va="top")
         ax.spines[["top", "right"]].set_visible(False)
-        ax.tick_params(labelsize=8.5)
+        ax.tick_params(labelsize=9.5)
     # mesma escala nos dois painéis: sem isso a comparação visual é enganosa
     lim = min(a.get_xlim()[0] for a in axes), max(a.get_xlim()[1] for a in axes)
     for ax in axes:
@@ -91,7 +94,7 @@ def figura(occ, cor_volumes):
 
     fig.tight_layout()
     destino = comum.FIG_DIR / f"fig16_ortogonalidade_vs_volumes_{comum.METRICA}.png"
-    fig.savefig(destino, dpi=200, bbox_inches="tight")
+    fig.savefig(destino, dpi=300, bbox_inches="tight")
     plt.close(fig)
     print(f"[5] figura: {destino.name}")
 

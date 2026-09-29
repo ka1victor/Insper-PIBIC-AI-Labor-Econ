@@ -124,26 +124,32 @@ def ajusta(y, w, sub):
 
 
 def figura(m, escala, rotulo_y, destino, titulo):
-    fig, ax = plt.subplots(figsize=(9, 4.6))
+    # 6,6 pol de largura para a página de 16 cm (6,3 pol): escala 0,95, e o menor
+    # texto (9,5 pt) sai a ~9 pt impresso. Em 9 pol ele saía a 6,3 pt.
+    fig, ax = plt.subplots(figsize=(6.6, 3.7))
     for token, rot, cor in SERIES:
         r = comum.es_coefs(m, f":{token}")
         r = r[r["k"] >= -60]
         datas = [comum.k_para_data(k) for k in r["k"]]
         est = r["est"] * escala
         se = r["se"] * escala
-        ax.plot(datas, est, color=cor, lw=1.6, label=rot.replace("*", ""))
+        ax.plot(datas, est, color=cor, lw=1.3, label=rot.replace("*", ""))
         ax.fill_between(datas, est - 1.96 * se, est + 1.96 * se,
                         color=cor, alpha=0.15, lw=0)
     ax.axhline(0, color="#444444", lw=0.9)
     ax.axvline(pd.Timestamp("2020-03-01"), color="#777777", ls=":", lw=1.1)
     ax.axvline(pd.Timestamp("2022-03-01"), color="#777777", ls="--", lw=1.1)
     ax.axvline(pd.Timestamp("2022-11-01"), color="#d6604d", lw=1.3)
-    ax.set_ylabel(rotulo_y)
-    ax.set_title(titulo, fontsize=11)
-    ax.legend(frameon=False, ncol=3, fontsize=9)
+    ax.set_ylabel(rotulo_y, fontsize=10.5)
+    # legenda numa faixa própria entre o título e o gráfico: no corpo que a
+    # página exige ela não cabe dentro dos eixos sem cruzar as linhas verticais
+    ax.set_title(titulo, fontsize=10.5, pad=24)
+    ax.tick_params(labelsize=9.5)
+    ax.legend(frameon=False, ncol=3, fontsize=9.5, loc="lower center",
+              bbox_to_anchor=(0.5, 1.0), borderaxespad=0.2, handlelength=1.8)
     ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout()
-    fig.savefig(destino, dpi=200)
+    fig.savefig(destino, dpi=300)
     plt.close(fig)
 
 

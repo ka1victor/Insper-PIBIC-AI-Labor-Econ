@@ -89,18 +89,34 @@ def contraste_pos(m, tokens, pesos):
     return {"est": est, "se": se, "lo": est - 1.96 * se, "hi": est + 1.96 * se}
 
 
-def figura(m, rotulo_y, titulo, nome):
-    fig, ax = plt.subplots(figsize=(13, 5.5))
+def figura(m, rotulo_y, titulo, nome, escala=1.0):
+    """`escala` multiplica só o que se desenha. O desemprego do painel é fração
+    da força de trabalho (0,02 = 2 p.p.), e o desemprego passa escala=100 para
+    que o eixo fale a unidade que o rótulo anuncia. A tabela continua na unidade
+    do painel."""
+    # TAMANHO PARA A PÁGINA. O relatório põe a figura a 16 cm (6,3 pol) de
+    # largura, e o corpo impresso da fonte é pt × 6,3 / largura em polegadas. Em
+    # 13 pol cada ponto virava 0,48 pt no papel; em 6,6 pol a escala é 0,95, e o
+    # menor texto (9,5 pt) sai a ~9 pt impresso.
+    fig, ax = plt.subplots(figsize=(6.6, 3.6))
     r = comum.es_coefs(m, ":q4")
     datas = r["k"].map(comum.k_para_data)
-    ax.fill_between(datas, r["est"] - 1.96 * r["se"], r["est"] + 1.96 * r["se"],
+    est, se = r["est"] * escala, r["se"] * escala
+    ax.fill_between(datas, est - 1.96 * se, est + 1.96 * se,
                     color=COR_Q4, alpha=0.13, linewidth=0)
-    ax.plot(datas, r["est"], ".", ms=4, color=COR_Q4)
+    ax.plot(datas, est, ".", ms=3, color=COR_Q4)
     comum.eixos_es(ax, rotulo_y)
-    ax.set_title(titulo, fontsize=12)
+    ax.xaxis.label.set_size(10.5)
+    ax.yaxis.label.set_size(10.5)
+    ax.tick_params(labelsize=9.5)
+    # título longo quebra em duas linhas, no travessão, em vez de estourar a
+    # largura: a primeira linha diz o contraste, a segunda o desfecho
+    if len(titulo) > 64:
+        titulo = titulo.replace(" — ", "\n", 1)
+    ax.set_title(titulo, fontsize=10.5)
     comum.rodape(fig)
-    fig.tight_layout()
-    fig.savefig(comum.FIG_DIR / nome, dpi=150)
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
+    fig.savefig(comum.FIG_DIR / nome, dpi=300)
     plt.close(fig)
     print(f"[3] figura: {nome}")
 
@@ -139,7 +155,8 @@ def roda(por: str, figuras: dict, sufixo: str):
            else "quarto de uso mais substitutivo vs. o mais complementar")
     if "desemprego" in figuras:
         figura(mu, "Efeito vs. Q1 (p.p. de desemprego)",
-               f"Event study por {rot} — Desemprego", figuras["desemprego"])
+               f"Event study por {rot} — Desemprego", figuras["desemprego"],
+               escala=100.0)
     if "salarios" in figuras:
         figura(me, "Efeito vs. Q1 (US$ semanais de jan/2010)",
                f"Event study por {rot} — Salários reais", figuras["salarios"])

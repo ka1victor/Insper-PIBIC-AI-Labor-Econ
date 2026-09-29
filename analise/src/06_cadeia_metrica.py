@@ -34,10 +34,11 @@ TEXTO_CLARO = {"desfecho"}
 CINZA = "#3d3d3d"
 
 
-def caixa(ax, x, y, w, h, texto, papel, fs=8.5):
-    """Nó do diagrama, com cor pelo papel e texto centrado."""
+def caixa(ax, x, y, w, h, texto, papel, fs=8.5, arredonda=0.02):
+    """Nó do diagrama, com cor pelo papel e texto centrado. `arredonda` é o raio
+    do canto em unidades de dados, que aqui são polegadas."""
     ax.add_patch(FancyBboxPatch(
-        (x, y), w, h, boxstyle="round,pad=0.008,rounding_size=0.02",
+        (x, y), w, h, boxstyle=f"round,pad=0.008,rounding_size={arredonda}",
         linewidth=1.1, edgecolor=COR[papel],
         facecolor=COR[papel] if papel in TEXTO_CLARO else COR[papel] + "33"))
     ax.text(x + w / 2, y + h / 2, texto, ha="center", va="center", fontsize=fs,
@@ -74,58 +75,68 @@ def liga(ax, a, b, rotulo=None, estilo="-", lado="auto", fs=7.2,
                           edgecolor="none", alpha=0.95))
 
 
-def legenda(ax, papeis, y=0.02):
+def legenda(ax, papeis, y=0.02, fs=7.6):
     handles = [Line2D([], [], marker="s", linestyle="", markersize=8,
                       markerfacecolor=COR[p] if p in TEXTO_CLARO else COR[p] + "55",
                       markeredgecolor=COR[p], label=rot)
                for p, rot in papeis]
     ax.legend(handles=handles, loc="lower center", bbox_to_anchor=(0.5, y),
-              ncol=len(papeis), frameon=False, fontsize=7.6,
+              ncol=len(papeis), frameon=False, fontsize=fs,
               handletextpad=0.5, columnspacing=1.6)
 
 
 def main():
-    # A GEOMETRIA É PARA PÁGINA EM RETRATO, e é ela que decide a legibilidade. O
-    # tamanho do texto NA PÁGINA é proporcional ao corpo da fonte dividido pela
-    # largura em polegadas, então estreitar a figura aumenta a fonte impressa: em
-    # 13x4 o docx a escalava para a largura útil e o texto das caixas ficava
-    # microscópico, ainda que impecável no .png solto. Rótulo curto é requisito
-    # pela mesma razão, porque as cinco caixas dividem cerca de 16 cm de página.
-    # Quem carrega o detalhe é a Nota da figura e a Tabela A1; a figura carrega a
-    # forma. Ao mexer aqui, regere e olhe o PDF.
-    fig, ax = plt.subplots(figsize=(9.2, 4.6))
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
+    # O TEXTO TEM DE SER LEGÍVEL NA PÁGINA, e é a largura que decide. O relatório
+    # põe a figura a 16 cm (6,3 pol), e o corpo impresso da fonte é
+    # pt × 6,3 / largura em polegadas. A versão em fileira única (9,2 pol, cinco
+    # caixas lado a lado) imprimia o texto das caixas a 5,9 pt e o das setas a
+    # 5 pt. Cinco caixas mais quatro rótulos de seta não cabem em 6,6 pol num
+    # corpo de 9–10 pt, então a construção da métrica dobra em duas fileiras (a
+    # segunda corre da direita para a esquerda) e o painel de desfechos fica na
+    # terceira. Quem carrega o detalhe é a Nota da figura e a Tabela A1; a
+    # figura carrega a forma.
+    # A tela está em POLEGADAS (0–W, 0–H), para que distância e fonte falem a
+    # mesma unidade. Ao mexer aqui, regere e OLHE o PNG.
+    W, H = 6.6, 3.75
+    fig = plt.figure(figsize=(W, H))
+    # eixos ocupando a figura inteira e sem tight_layout: é o que mantém a
+    # unidade de dados igual à polegada real (o tight_layout encolheria os eixos
+    # para caber a legenda, e as caixas sairiam menores que o texto delas)
+    ax = fig.add_axes([0, 0, 1, 1])
+    ax.set_xlim(0, W)
+    ax.set_ylim(0, H)
     ax.axis("off")
+    FS, FS_SETA, R = 9.5, 9, 0.08
+    bw, bh = 1.58, 0.74
+    c1, c2, c3 = 0.05, 2.51, 4.97         # colunas (x da borda esquerda)
+    ya, yb, yc = 2.96, 1.78, 0.42          # fileiras (y da borda inferior)
 
-    y1, h = 0.58, 0.28
-    c = caixa(ax, 0.015, y1, 0.17, h, "conversas do AEI\n(2,9 milhões)", "dado")
-    t = caixa(ax, 0.250, y1, 0.16, h, "tarefa O*NET\n+ tipo de uso", "dado")
-    s = caixa(ax, 0.480, y1, 0.14, h, "ocupação\nSOC", "dado")
-    o = caixa(ax, 0.665, y1, 0.13, h, "código\nCPS", "dado")
-    d = caixa(ax, 0.830, y1, 0.155, h,
-              "métrica por ocupação:\nuso $u$, automação $a$", "tratamento")
-    liga(ax, c, t, "classificação\npor modelo")
-    liga(ax, t, s, "repartição\nfracionária")
-    liga(ax, s, o, "harmonização\nde versão")
-    liga(ax, o, d, "agregação", lab=(-0.010, 0.012))
+    c = caixa(ax, c1, ya, bw, bh, "conversas do AEI\n(2,9 milhões)", "dado", FS, R)
+    t = caixa(ax, c2, ya, bw, bh, "tarefa O*NET\n+ tipo de uso", "dado", FS, R)
+    s = caixa(ax, c3, ya, bw, bh, "ocupação\nSOC", "dado", FS, R)
+    o = caixa(ax, c3, yb, bw, bh, "código\nCPS", "dado", FS, R)
+    d = caixa(ax, c2, yb, bw, bh, "métrica por ocupação:\nuso $u$,\nautomação $a$",
+              "tratamento", FS, R)
+    liga(ax, c, t, "classificação\npor modelo", fs=FS_SETA, lab=(0, 0.02))
+    liga(ax, t, s, "repartição\nfracionária", fs=FS_SETA, lab=(0, 0.02))
+    liga(ax, s, o, "harmonização\nde versão", fs=FS_SETA, lado="v",
+         lab=(-0.62, -0.19))
+    liga(ax, o, d, "agregação", fs=FS_SETA, lab=(0, 0.02))
 
-    y2 = 0.10
-    p = caixa(ax, 0.105, y2, 0.17, 0.24, "CPS / IPUMS\nocupação × mês\n2010–2026", "dado")
-    yy = caixa(ax, 0.380, y2, 0.17, 0.24,
-               "desfechos: salário real\ne taxa de desemprego", "desfecho")
-    es = caixa(ax, 0.700, y2, 0.19, 0.24,
-               "event study com\ntratamento contínuo\n(seção 3.2.2)", "motor")
+    p = caixa(ax, c1, yc, bw, bh, "CPS / IPUMS\nocupação × mês\n2010–2026", "dado", FS, R)
+    yy = caixa(ax, c2, yc, bw, bh, "desfechos:\nsalário real e taxa\nde desemprego",
+               "desfecho", FS, R)
+    es = caixa(ax, c3, yc, bw, bh, "event study com\ntratamento contínuo\n(seção 3.2.2)",
+               "motor", FS, R)
     liga(ax, p, yy)
     liga(ax, yy, es)
-    liga(ax, d, es, "entra como\ntratamento",
-         estilo=(0, (4, 3)), lado="v", off_a=-0.02, lab=(0.052, -0.06))
+    liga(ax, d, es, "entra como\ntratamento", fs=FS_SETA,
+         estilo=(0, (4, 3)), lado="v", off_a=0.55, off_b=-0.55, lab=(-0.80, -0.20))
 
     legenda(ax, [("dado", "dado observado"), ("tratamento", "tratamento estimado"),
-                 ("desfecho", "desfecho"), ("motor", "especificação")], y=-0.02)
-    fig.tight_layout()
+                 ("desfecho", "desfecho"), ("motor", "especificação")], y=-0.03, fs=9.5)
     destino = comum.FIG_DIR / "fig01_cadeia_metrica.png"
-    fig.savefig(destino, dpi=200, bbox_inches="tight")
+    fig.savefig(destino, dpi=300, bbox_inches="tight")
     plt.close(fig)
     print(f"[6] figura: {destino.name}")
 

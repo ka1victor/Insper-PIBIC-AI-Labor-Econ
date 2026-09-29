@@ -11,7 +11,7 @@ componente negativo, escondido dentro de um saldo positivo, que a medida única 
 mostra. O desemprego não se move, e o relatório explica por que esse zero é ausência
 de evidência e não evidência de ausência.
 
-**Autor:** Kauã Victor Dias Santos · **Orientador:** Prof. Thomas Victor Conti ·
+**Autor:** Kauã Victor Dias dos Santos · **Orientador:** Prof. Thomas Victor Conti ·
 **Coorientador:** Prof. Naércio Aquino Menezes Filho
 
 Aqui estão o código, os dados derivados e a documentação de método: é o que permite
