@@ -35,7 +35,7 @@ que é conclusão diferente de não haver efeito.
 ## Equilíbrio dos quartos na outra métrica do uso (intensidade)
 
 Cortar por uma dimensão do uso deixa a outra solta? É a objeção que a seção
-2.2 do relatório levanta contra os desenhos que ordenam por uma de cada vez.
+2.1.3 do relatório levanta contra os desenhos que ordenam por uma de cada vez.
 Aqui ela é medida, e não argumentada.
 
 | Quarto do corte | intensidade média (d.p.) | Ocupações |

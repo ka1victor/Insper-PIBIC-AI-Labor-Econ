@@ -108,7 +108,7 @@ def figura(m, rotulo_y, titulo, nome):
 def equilibrio(doses, base):
     """Os quartos de uma métrica ficam equilibrados na outra?
 
-    A seção 2.2 do relatório critica os desenhos que ordenam as ocupações por uma
+    A seção 2.1.3 do relatório critica os desenhos que ordenam as ocupações por uma
     dimensão do uso de cada vez, porque isso deixa a outra solta, e o corte por
     quartos faz exatamente isso. A defesa aqui é empírica: medida como fração, a
     composição é quase não correlacionada com a intensidade, então os quartos de
@@ -202,7 +202,7 @@ def roda(por: str, figuras: dict, sufixo: str):
               f"## Equilíbrio dos quartos na outra métrica do uso ({rot_outra})",
               "",
               "Cortar por uma dimensão do uso deixa a outra solta? É a objeção que a seção",
-              "2.2 do relatório levanta contra os desenhos que ordenam por uma de cada vez.",
+              "2.1.3 do relatório levanta contra os desenhos que ordenam por uma de cada vez.",
               "Aqui ela é medida, e não argumentada.",
               "",
               f"| Quarto do corte | {rot_outra} média (d.p.) | Ocupações |",

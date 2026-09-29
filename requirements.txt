@@ -3,6 +3,11 @@
 # Verificado em 15/08/2026 com Python 3.12, pandas 2.2.1, numpy 1.26.4,
 # pyfixest 0.60.0, matplotlib 3.8.3, scipy 1.11.4 e openpyxl 3.1.2: os seis
 # passos reproduzem as tabelas e figuras deste repositório.
+#
+# Reconferido em 04/09/2026 com Python 3.11, pandas 3.0.5, numpy 2.4.6,
+# matplotlib 3.11.1 e scipy 1.17.1: as tabelas e o doses_por_ocupacao.csv saem
+# identicos; as figuras saem visualmente iguais, mas nao byte a byte, porque o
+# matplotlib mudou de versao.
 pandas
 numpy
 pyfixest>=0.60

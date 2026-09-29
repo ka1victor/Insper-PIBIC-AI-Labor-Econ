@@ -1,9 +1,9 @@
-"""Passo 4 — A Figura B1: a cadeia da conversa do AEI até a ocupação do painel.
+"""Passo 4 — A Figura A1: a cadeia da conversa do AEI até a ocupação do painel.
 
 É figura conceitual, e não tem dado: desenha os quatro elos que levam de uma
 conversa do Anthropic Economic Index a uma métrica por ocupação do CPS, e mostra
 onde essa cadeia se junta ao painel de desfechos. Dois dos elos falham em
-silêncio, e o apêndice B do relatório diz quais e por quê.
+silêncio, e o apêndice A do relatório diz quais e por quê.
 
 Nasceu como bloco Mermaid dentro do Markdown, o que o Word não renderiza: a
 figura conceitual chegava à página entregue como texto corrido. Aqui ela é
@@ -91,7 +91,7 @@ def main():
     # 13x4 o docx a escalava para a largura útil e o texto das caixas ficava
     # microscópico, ainda que impecável no .png solto. Rótulo curto é requisito
     # pela mesma razão, porque as cinco caixas dividem cerca de 16 cm de página.
-    # Quem carrega o detalhe é a Nota da figura e a Tabela B1; a figura carrega a
+    # Quem carrega o detalhe é a Nota da figura e a Tabela A1; a figura carrega a
     # forma. Ao mexer aqui, regere e olhe o PDF.
     fig, ax = plt.subplots(figsize=(9.2, 4.6))
     ax.set_xlim(0, 1)

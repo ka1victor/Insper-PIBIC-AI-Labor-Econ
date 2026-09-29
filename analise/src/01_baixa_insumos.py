@@ -7,7 +7,7 @@ métrica do zero.
 O que baixa, e de onde:
 
   três relatórios do Anthropic Economic Index, do conjunto Anthropic/EconomicIndex
-  no HuggingFace: conversas classificadas por tarefa e por tipo de colaboração,
+  no Hugging Face: conversas classificadas por tarefa e por tipo de colaboração,
   nas janelas de agosto e novembro de 2025 e fevereiro de 2026;
 
   o universo de tarefas do O*NET, reconstruído de "Task Statements" mais

@@ -9,7 +9,7 @@ A razão da forma é de teoria. A tradução literal da abordagem de tarefas ped
 os dois VOLUMES, uso complementar e uso substitutivo, e esses dois correlacionam
 +0,94 entre si nestes dados, de modo que não se separam. A reparametrização em
 intensidade × fração é a forma da teoria que este painel identifica, porque u e a
-são quase ortogonais, e o produto é o termo que a teoria exige. A Figura B2, que
+são quase ortogonais, e o produto é o termo que a teoria exige. A Figura A2, que
 o passo 3 desenha, é a evidência dessa afirmação.
 
 Uma regressão por desfecho, e desta mesma regressão saem:
@@ -19,7 +19,7 @@ Uma regressão por desfecho, e desta mesma regressão saem:
      com c = 1/n nos coeficientes posteriores, usando o vcov agrupado. Não é
      média de erros-padrão, que ignoraria a covariância entre os coeficientes;
   2. o diagnóstico de pré-tendência por termo, em três janelas, que é a
-     **Tabela A1**;
+     **Tabela 2**;
   3. o efeito mínimo detectável, que é o que separa "efeito pequeno" de "efeito
      não medido" na leitura do zero do desemprego;
   4. o efeito marginal da composição por nível de uso;
@@ -206,7 +206,7 @@ def main():
             L.append(f"| {rot} | ({se:.{casas}f}) | {2.8 * se:.{casas}f} |")
         L.append("")
 
-        # ---- 3. pré-tendência por termo, em três janelas (Tabela A1) ----
+        # ---- 3. pré-tendência por termo, em três janelas (Tabela 2) ----
         L += ["**Diagnóstico de pré-tendência por termo** — mesmo modelo e mesmos",
               "coeficientes; muda só quais meses entram no teste:", "",
               "| Termo | Janela | p (Wald) | \\|pré\\| médio | % indiv. sig. | efeito/violação |",

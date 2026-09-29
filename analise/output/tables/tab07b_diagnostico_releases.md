@@ -1,6 +1,6 @@
 # Diagnóstico 07b — releases, pooling e estabilidade
 
-Entidades: v3 = 04–11/08/2025; v4 = 13–20/11/2025; v5 = 05–12/02/2026; pooled = soma das contagens (v3+v4+v5), procedimento de Massenkoff & McCrory (2026). Core sem exclusão além da censura da fonte (célula-tarefa ≥15 conversas); limiar ≥50 e média de z-scores intra-release como robustez.
+Entidades: v3 = 04–11/08/2025; v4 = 13–20/11/2025; v5 = 05–12/02/2026; pooled = soma das contagens (v3+v4+v5), procedimento de Massenkoff e McCrory (2026). Core sem exclusão além da censura da fonte (célula-tarefa ≥15 conversas); limiar ≥50 e média de z-scores intra-release como robustez.
 
 ## Concentração de cauda (nível tarefa)
 
@@ -18,7 +18,7 @@ Entidades: v3 = 04–11/08/2025; v4 = 13–20/11/2025; v5 = 05–12/02/2026; poo
 | v4 | 81.7% | 77.9% |
 | v5 | 81.5% | 77.5% |
 
-## Automação agregada por geografia (conferência do §4.3)
+## Automação agregada por geografia (conferência da Tabela A2)
 
 | release | automação agregada US | global |
 |---|---|---|
@@ -67,4 +67,4 @@ Essa inflação é concentrada, não difusa — por ocupação: mediana 1.000, p
 | automação global | v4×v5 | 0.813 | 35.0% | 331 |
 | automação global (≥50/release) | v4×v5 | 0.884 | 32.9% | 277 |
 
-Protocolo de estabilidade de Yin & Ogut (2026) aplicado às nossas doses. A migração de quartil concentra-se nas ocupações de poucas conversas — motivação do limiar de robustez.
+Protocolo de estabilidade de Yin e Ogut (2026) aplicado às nossas doses. A migração de quartil concentra-se nas ocupações de poucas conversas — motivação do limiar de robustez.

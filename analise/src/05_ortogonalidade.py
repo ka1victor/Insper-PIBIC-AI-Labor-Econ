@@ -1,4 +1,4 @@
-"""Passo 3 — A Figura B2: por que a especificação é em intensidade e fração.
+"""Passo 3 — A Figura A2: por que a especificação é em intensidade e fração.
 
 A tradução literal da abordagem de tarefas pediria os dois VOLUMES, uso
 complementar e uso substitutivo por trabalhador, que é o que a literatura mede em

@@ -1,11 +1,11 @@
 # A métrica de uso do AEI: como é construída, e por que cada decisão é essa
 
-> **O que este arquivo é.** O apêndice B do relatório é um resumo só de tabelas extraído
-> daqui: o paper leva os números, e a argumentação de cada decisão de construção vive neste
+> **O que este arquivo é.** O apêndice A do relatório é um resumo só de figuras e tabelas
+> extraído daqui: o paper leva os números, e a argumentação de cada decisão de construção vive neste
 > arquivo. Quem quiser saber por que a métrica é assim, e não do jeito natural, lê aqui.
 >
 > **Precedência quando algo divergir:** as tabelas em `analise/output/tables/` mandam neste
-> arquivo, e este arquivo manda no apêndice B. Um número que só existe no paper é bug.
+> arquivo, e este arquivo manda no apêndice A. Um número que só existe no paper é bug.
 >
 > **Uma ressalva sobre as remissões a script.** Cada bloco diz onde o número nasce, e alguns
 > apontam para etapas do pipeline completo que não estão neste pacote, porque reconstroem as
@@ -164,7 +164,7 @@ usuário único do Claude no relatório e ainda assim respondem por apenas **21,
 global.
 
 Por isso reconstruímos as métricas com o recorte por país dos três relatórios que somamos,
-usando apenas as linhas dos Estados Unidos (APPEL et al., 2025, 2026; MASSENKOFF; McCRORY,
+usando apenas as linhas dos Estados Unidos (Appel *et al.*, 2025, 2026; Massenkoff; McCrory,
 2026).
 
 **A fonte impõe um limite que afeta só uma das duas métricas.** Para cada país o AEI publica
@@ -207,7 +207,7 @@ bastante entre janelas. Isso torna a escolha do relatório uma decisão com cons
 - **O argumento.** Se o que a regressão precisa é a composição *típica* do período, cada
   semana observada é uma estimativa imprecisa dela, e várias semanas juntas estimam melhor do
   que uma. É também o procedimento da própria fonte no seu único trabalho que liga o AEI a
-  salário e emprego (MASSENKOFF; McCRORY, 2026) — precedente que vale citar quando a escolha
+  salário e emprego (Massenkoff; McCrory, 2026) — precedente que vale citar quando a escolha
   for questionada.
 - **Os números do ganho**, todos na direção das ocupações de poucas conversas, cuja composição
   muda de um relatório para outro por sorteio de amostra:
@@ -255,7 +255,7 @@ Duas coisas limitam o dano, e as duas são indiretas:
 
 ## 6. As limitações, e o tamanho de cada uma
 
-Cinco governam a leitura e estão enunciadas no §3.1 do paper. **Duas têm tamanho medido** —
+Cinco governam a leitura e estão enunciadas no §3.1.3 do paper. **Duas têm tamanho medido** —
 esta seção existe sobretudo por elas.
 
 ### 6.1 Seleção de plataforma — a mais séria (tamanho medido)
@@ -339,8 +339,8 @@ não a realocação de tarefas de que fala o modelo de Acemoglu e Restrepo.
 | contraste entre construções da métrica | `16_contraste_mesmo_estimador.py` | `tab16_contraste_mesmo_estimador_US_pooled.md` |
 | variantes da métrica (global, task_based, min50…) | `08_rerun_com_doses.py --doses` | `tab08_resultados_<tag>.md` |
 
-Números de terceiros (Yin e Ogut 2026; Chen e Roth 2024; Massenkoff e McCrory 2026) não têm
-script: vêm da fonte, e estão na lista de referências do relatório.
+Números de terceiros (Yin; Ogut, 2026; Chen; Roth, 2024; Massenkoff; McCrory, 2026) não têm
+script: vêm da fonte, listada nas referências ao fim deste arquivo.
 
 ---
 
@@ -349,11 +349,11 @@ script: vêm da fonte, e estão na lista de referências do relatório.
 | no paper | o que leva |
 |---|---|
 | §3.1.1 Fontes | o que a métrica é, as três janelas, os 2,9 milhões |
-| §3.1.2 Manipulações críticas | as quatro decisões, em prosa curta |
+| §3.1.2 Manipulações | as quatro decisões, em prosa curta, com remissão à Figura A1 e à Tabela A1 |
 | §3.1.3 Métricas | as duas dimensões, as cinco limitações, o −0,04 |
 | §3.2.2 Especificação | por que intensidade × fração, e o VIF de 1,6 |
-| §4.2 | os 41–49% da composição americana, a ponte temporal |
-| **Apêndice B** | **só tabelas**: B1 decisões, B2 estabilidade, B3 limitações, B4 composição por janela, B5 colinearidade |
+| §4.2 Salários | os 41–49% da composição americana, a ponte temporal |
+| **Apêndice A** | **só figuras e tabelas**: Figura A1 cadeia, Tabela A1 decisões, Figura A2 intensidade e fração contra os volumes (com o VIF na nota), Tabela A2 composição por janela, Tabela A3 estabilidade, Tabela A4 limitações |
 
 ---
 
@@ -365,14 +365,14 @@ depende dele e morre com ele.
 | se mudar… | cai… |
 |---|---|
 | a repartição da conversa (1,48×; 16–33%) | a magnitude de **todos** os efeitos salariais, e a Tabela 1 inteira |
-| o denominador pré-tratamento (2–3×) | idem, e a defesa contra *bad control* do §3.1.2 |
+| o denominador pré-tratamento (2–3×) | idem, e a defesa contra *bad control* do §3.1.2 e da Tabela A1 |
 | cor($u$, $a$) = −0,04 | a contribuição central: sem quase-ortogonalidade a decomposição não se estima, e o §3.2.2 desaba junto com a §2.1.3 |
-| o VIF de 1,6 dos três termos | a justificativa do termo de interação no §3.2.2 |
+| o VIF de 1,6 dos três termos | a justificativa do termo de interação no §3.2.2 e na nota da Figura A2 |
 | a estabilidade 0,93–0,98 / 0,83–0,88 | a mitigação da ponte temporal no §4.2 (é o que o parágrafo cita) |
-| a direção do viés de seleção (substituído não gera conversa) | a leitura de **limite inferior** da penalidade, no Resumo, no Abstract e nas Considerações Finais |
+| a direção do viés de seleção (substituído não gera conversa) | a leitura de **limite inferior** da penalidade, na Tabela A4 |
 | os 41–49% de composição americana | o argumento do §4.2 de que o saldo positivo **não** é composicional |
 | o 21,6% de uso americano | a motivação do recorte por país (§4) |
-| os ~4 p.p. da troca de classificador | a banda mínima de incerteza da composição, citada no §2.2 e no §3.1.3 |
+| os ~4 p.p. da troca de classificador | a banda mínima de incerteza da composição, na Tabela A4, à qual o §3.1.3 remete |
 
 ---
 
@@ -385,3 +385,17 @@ depende dele e morre com ele.
 | 06/08/2026 | métrica principal passa de *task-based* a *usage-based*; robustez toda refeita |
 | 11/08/2026 | vocabulário: "adoção" → "uso"/"intensidade do uso" |
 | 12/08/2026 | recorte por plataforma entra como quinta limitação; VIF dos três termos medido; apêndice B reduzido a tabelas e a prosa migrada para este arquivo |
+
+---
+
+## Referências
+
+APPEL, Ruth; MASSENKOFF, Maxim; McCRORY, Peter; McCAIN, Miles; HELLER, Ryan; NEYLON, Tyler; TAMKIN, Alex. **Anthropic Economic Index report: Economic primitives**. San Francisco: Anthropic, 15 jan. 2026. Disponível em: https://www.anthropic.com/research/anthropic-economic-index-january-2026-report. Acesso em: 22 set. 2026.
+
+APPEL, Ruth; McCRORY, Peter; TAMKIN, Alex; McCAIN, Miles; NEYLON, Tyler; STERN, Michael. **Anthropic Economic Index report: Uneven geographic and enterprise AI adoption**. San Francisco: Anthropic, 15 set. 2025. arXiv:2511.15080. DOI: 10.48550/arXiv.2511.15080. Disponível em: https://doi.org/10.48550/arXiv.2511.15080. Acesso em: 22 set. 2026.
+
+CHEN, Jiafeng; ROTH, Jonathan. Logs with Zeros? Some Problems and Solutions. **The Quarterly Journal of Economics**, v. 139, n. 2, p. 891–936, 2024. DOI: 10.1093/qje/qjad054. Disponível em: https://doi.org/10.1093/qje/qjad054. Acesso em: 22 set. 2026.
+
+MASSENKOFF, Maxim; McCRORY, Peter. **Labor market impacts of AI: A new measure and early evidence**. San Francisco: Anthropic, 5 mar. 2026. Disponível em: https://www.anthropic.com/research/labor-market-impacts. Acesso em: 22 set. 2026.
+
+YIN, Michelle; OGUT, Burhan. **Who Uses AI? Platform Selection and the Measurement of Occupational AI Exposure**. arXiv:2605.21743, maio 2026. Disponível em: https://arxiv.org/abs/2605.21743. Acesso em: 22 set. 2026.

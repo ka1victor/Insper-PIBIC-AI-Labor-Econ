@@ -17,7 +17,7 @@ ruidosa dela, numa janela de cerca de uma semana. Usar um só é sortear um pont
 da série, e o de agosto de 2025 é o pico histórico da automação, com 49% contra
 45% três meses depois. Somamos as contagens por tarefa entre os três e
 recomputamos as frações, que é o procedimento da própria fonte no seu trabalho
-que liga o índice a salário e emprego (Massenkoff e McCrory, 2026). O ganho é de
+que liga o índice a salário e emprego (Massenkoff; McCrory, 2026). O ganho é de
 precisão: a mediana de conversas classificadas por ocupação vai de 265 para 809,
 e 41 ocupações só têm composição observável quando se juntam as janelas.
 
@@ -26,7 +26,7 @@ com pelo menos 15 conversas. As colunas com sufixo `_min50` saem como
 diagnóstico, e não como especificação: elas mostram que a instabilidade entre
 relatórios vive nas ocupações de poucas conversas.
 
-A CADEIA, elo a elo, está desenhada na Figura B1 e derivada em
+A CADEIA, elo a elo, está desenhada na Figura A1 e derivada em
 `docs/METRICA-AEI.md`. Os dois elos que falham em silêncio são a repartição
 fracionária, sem a qual a mesma conversa é contada várias vezes, e a
 harmonização de versão do código de ocupação, sem a qual as ocupações de
@@ -34,7 +34,7 @@ tecnologia perdem o período anterior ao evento inteiro.
 
 Saídas:
   dados/doses_por_ocupacao.csv                     as métricas por ocupação
-  tables/tab07b_diagnostico_releases.md            Tabelas B1, B2 e B3
+  tables/tab07b_diagnostico_releases.md            Tabelas A1, A2 e A3
 """
 import argparse
 import sys
@@ -236,7 +236,7 @@ def load_us_task_counts(df, label):
 def country_agg_automation(df, label):
     """Participação automativa agregada (faceta collaboration) US vs. global.
 
-    Conferência do par 49,1% (EUA) × 51,1% (global) citado no draft §4.3."""
+    Conferência do par 49,1% (EUA) × 51,1% (global) citado na Tabela A2 do relatório."""
     res = {}
     for geo, mask in [
             ("US", df["geography"].eq("country")
@@ -570,7 +570,7 @@ def main():
     # Uso que CASA com o universo O*NET — o denominador certo do "contada N
     # vezes": conversas cuja tarefa não está no universo nunca chegam ao nível
     # CPS, então incluí-las subestimaria a duplicação. É este o número citado
-    # no §4.2 do relatório.
+    # na Tabela A1 do relatório.
     tot_matched = glob_pool.loc[
         glob_pool["task"].isin(set(onet["task"])), "usage"].sum()
     print(f"[2] conservação de contagens (global pooled): tarefa-nível "
@@ -677,13 +677,13 @@ def main():
             "Entidades: " + "; ".join(
                 f"{t} = {RELEASES[t][1]}" for t in pooled_tags) +
             f"; pooled = soma das contagens ({'+'.join(pooled_tags)}), "
-            "procedimento de Massenkoff & McCrory (2026). Core sem exclusão "
+            "procedimento de Massenkoff e McCrory (2026). Core sem exclusão "
             "além da censura da fonte (célula-tarefa ≥15 conversas); limiar "
             f"≥{n_min} e média de z-scores intra-release como robustez.",
             "", "## Concentração de cauda (nível tarefa)", "", *diag_tail, "",
             "## Match tarefa→universo O*NET (guarda-corpo de vintage)", "",
             *diag_match, "",
-            "## Automação agregada por geografia (conferência do §4.3)", "",
+            "## Automação agregada por geografia (conferência da Tabela A2)", "",
             *agg_lines, "",
             "## Limiar de robustez (nível ocupação, dose pooled)", "",
             *diag_filter,
@@ -727,7 +727,7 @@ def main():
             "é a concentração que desloca a dose.", "",
             "## Estabilidade da ordenação entre releases (Spearman/quartil)",
             "", *diag_stab, "",
-            "Protocolo de estabilidade de Yin & Ogut (2026) aplicado às "
+            "Protocolo de estabilidade de Yin e Ogut (2026) aplicado às "
             "nossas doses. A migração de quartil concentra-se nas ocupações "
             "de poucas conversas — motivação do limiar de robustez.", ""]
     # Os dois argumentos são obrigatórios no Windows, e por motivos distintos:
@@ -737,7 +737,7 @@ def main():
     (comum.TAB_DIR / "tab07b_diagnostico_releases.md").write_text(
         "\n".join(diag), encoding="utf-8", newline="\n")
     print("[2] diagnóstico → tables/tab07b_diagnostico_releases.md "
-          "(Tabelas B1, B2 e B3 do relatório)")
+          "(Tabelas A1, A2 e A3 do relatório)")
 
 
 if __name__ == "__main__":
